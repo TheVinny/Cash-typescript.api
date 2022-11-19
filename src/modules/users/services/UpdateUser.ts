@@ -1,23 +1,27 @@
-import { getCustomRepository } from 'typeorm';
 import { hash, compare } from 'bcrypt';
 import User from '../infra/model/userModel';
-import UserRepository from '../repository/userRepository';
 import AppError from '@shared/errors/AppError';
 import { IUpdateUser } from '../domain/interfaces/IUpdateUser';
+import { inject, injectable } from 'tsyringe';
+import { IUsersRepository } from '../domain/interfaces/IUsersRepository';
 
+@injectable()
 class UpdateUser {
+  constructor(
+    @inject('UserRepository')
+    private userRepository: IUsersRepository,
+  ) {}
   public async execute({
     id,
     password,
     username,
     old_password,
   }: IUpdateUser): Promise<User> {
-    const userRepository = getCustomRepository(UserRepository);
-    const userExists = await userRepository.FindById(id);
+    const userExists = await this.userRepository.FindById(id);
 
     if (!userExists) throw new AppError('ID not found', 500);
 
-    const usernameExists = await userRepository.FindByUsername(
+    const usernameExists = await this.userRepository.FindByUsername(
       username as string,
     );
 
@@ -44,10 +48,10 @@ class UpdateUser {
     userExists.username = username || userExists.username;
     userExists.password = hashpass || userExists.password;
 
-    await userRepository.save(userExists);
+    await this.userRepository.save(userExists);
 
     return userExists;
   }
 }
 
-export default new UpdateUser();
+export default UpdateUser;

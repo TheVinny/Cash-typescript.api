@@ -10,4 +10,5 @@ export interface IUsersRepository {
   FindById(id: string): Promise<IUser | undefined>;
   save(user: IUser): Promise<void>;
   find(): Promise<IUser[]>;
+  remove(user: IUser): Promise<void>;
 }

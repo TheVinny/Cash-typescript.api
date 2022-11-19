@@ -12,6 +12,9 @@ export default class UserRepository implements IUsersRepository {
   constructor() {
     this.repository = getRepository(User);
   }
+  public async remove(user: IUser): Promise<void> {
+    this.repository.remove(user);
+  }
   public async find(): Promise<IUser[]> {
     return await this.repository.find();
   }
