@@ -1,21 +1,20 @@
-import { getCustomRepository } from 'typeorm';
 import { hash } from 'bcrypt';
-import User from '../infra/model/userModel';
-import UserRepository from '../repository/userRepository';
 import AppError from '@shared/errors/AppError';
 import { ICreateUser } from '../domain/interfaces/ICreateUser';
+import { IUsersRepository } from '../domain/interfaces/IUsersRepository';
+import { IUser } from '../domain/interfaces/IUser';
 
 class CreateUser {
-  public async execute({ password, username }: ICreateUser): Promise<User> {
-    const userRepository = getCustomRepository(UserRepository);
+  constructor(private userRepository: IUsersRepository) {}
 
-    const userExists = await userRepository.FindByUsername(username);
+  public async execute({ password, username }: ICreateUser): Promise<IUser> {
+    const userExists = await this.userRepository.FindByUsername(username);
 
     if (userExists) throw new AppError('Username has already exists', 409);
 
     const hashpass = await hash(password, 8);
 
-    const creating = await userRepository.CreateAccount({
+    const creating = await this.userRepository.CreateAccount({
       password: hashpass,
       username,
     });
@@ -26,4 +25,4 @@ class CreateUser {
   }
 }
 
-export default new CreateUser();
+export default CreateUser;
