@@ -46,8 +46,8 @@ export default class TransactionRepo extends Repository<Transaction> {
     id,
     date,
   }: IFilter): Promise<Transaction[]> {
-    console.log(EFilter);
     if (filter && date) {
+      console.log(EFilter[filter]);
       const dateformat = moment(date, 'DD/MM/YYYY');
       const transactions = await this.find({
         where: [
@@ -75,7 +75,6 @@ export default class TransactionRepo extends Repository<Transaction> {
         where: {
           [EFilter[filter]]: id,
         },
-        relations: ['account.user'],
       });
       return transactions;
     }
