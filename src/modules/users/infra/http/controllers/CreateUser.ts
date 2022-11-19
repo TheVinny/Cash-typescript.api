@@ -1,15 +1,13 @@
 import { Request, Response } from 'express';
-import CreateUser from '@modules/users/services/CreateUser';
 import { instanceToInstance } from 'class-transformer';
-import UserRepository from '@modules/users/repository/userRepository';
+import { container } from 'tsyringe';
+import CreateUser from '@modules/users/services/CreateUser';
 
 class CreateUserController {
   async execute(req: Request, res: Response): Promise<Response> {
     const { username, password } = req.body;
 
-    const custom = new UserRepository();
-
-    const createuser = new CreateUser(custom);
+    const createuser = container.resolve(CreateUser);
 
     const user = await createuser.execute({ password, username });
 

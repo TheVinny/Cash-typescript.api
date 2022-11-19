@@ -3,10 +3,14 @@ import AppError from '@shared/errors/AppError';
 import { ICreateUser } from '../domain/interfaces/ICreateUser';
 import { IUsersRepository } from '../domain/interfaces/IUsersRepository';
 import { IUser } from '../domain/interfaces/IUser';
+import { inject, injectable } from 'tsyringe';
 
+@injectable()
 class CreateUser {
-  constructor(private userRepository: IUsersRepository) {}
-
+  constructor(
+    @inject('UserRepository')
+    private userRepository: IUsersRepository,
+  ) {}
   public async execute({ password, username }: ICreateUser): Promise<IUser> {
     const userExists = await this.userRepository.FindByUsername(username);
 
