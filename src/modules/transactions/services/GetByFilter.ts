@@ -10,7 +10,7 @@ class GetByFilter {
     const transactionRepo = getCustomRepository(TransactionRepository);
     const userRepository = getCustomRepository(UserRepository);
 
-    const user = await userRepository.findOne(id, { relations: ['account'] });
+    const user = await userRepository.getAccountInUser(id);
 
     if (!user) throw new AppError('id not found', 404);
 

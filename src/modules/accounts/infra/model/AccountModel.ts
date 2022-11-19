@@ -6,9 +6,10 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+import { IAccount } from '../domain/interfaces/IAccount';
 
 @Entity('accounts')
-class Account {
+class Account implements IAccount {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 

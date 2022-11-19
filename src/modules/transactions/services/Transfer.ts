@@ -14,9 +14,7 @@ class TransferAccount {
     const transactionRepo = getCustomRepository(TransactionRepository);
     const userRepository = getCustomRepository(UserRepository);
 
-    const user = await userRepository.findOne(id as string, {
-      relations: ['account'],
-    });
+    const user = await userRepository.getAccountInUser(id);
 
     if (!user) throw new AppError('user id not found', 404);
 
@@ -29,8 +27,8 @@ class TransferAccount {
     if (!receiver) throw new AppError('receiver username not found', 404);
 
     const transaction = await transactionRepo.transferTo({
-      senderAccount: user.account,
-      receiverAccount: receiver.account,
+      sender: user.account,
+      receiver: receiver.account,
       value,
     });
 

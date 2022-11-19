@@ -1,19 +1,29 @@
-import Account from '@modules/accounts/infra/model/AccountModel';
-import { EntityRepository, getCustomRepository, Repository } from 'typeorm';
+import {
+  EntityRepository,
+  getCustomRepository,
+  getRepository,
+  Repository,
+} from 'typeorm';
 import UserRepository from '@modules/users/repository/userRepository';
+import Account from '../infra/model/AccountModel';
+import { IAccount } from '../infra/domain/interfaces/IAccount';
+import { IAccountRepository } from '../infra/domain/interfaces/IAccountRepository';
 
 @EntityRepository(Account)
-export default class AccountRepository extends Repository<Account> {
-  public async FindById(id: string): Promise<Account | undefined> {
-    const userRepository = getCustomRepository(UserRepository);
-    const user = await userRepository.findOne({
-      where: {
-        id,
-      },
-      relations: ['account'],
-    });
+export default class AccountRepository implements IAccountRepository {
+  private repository: Repository<Account>;
 
-    const account = await this.findOne(user?.account.id);
+  constructor() {
+    this.repository = getRepository(Account);
+  }
+
+  public async FindById(id: string): Promise<IAccount | undefined> {
+    const userRepository = getCustomRepository(UserRepository);
+
+    const user = await userRepository.getAccountInUser(id);
+
+    const account = await this.repository.findOne(user?.account);
+
     return account;
   }
 }

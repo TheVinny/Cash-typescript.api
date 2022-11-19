@@ -22,7 +22,7 @@ export default class UserRepository implements IUsersRepository {
     return user;
   }
 
-  public async FindByUsername(username: string): Promise<User | undefined> {
+  public async FindByUsername(username: string): Promise<IUser | undefined> {
     const user = await this.repository.findOne({
       where: {
         username,
@@ -35,7 +35,7 @@ export default class UserRepository implements IUsersRepository {
   public async CreateAccount({
     password,
     username,
-  }: ICreateUser): Promise<User | undefined> {
+  }: ICreateUser): Promise<IUser | undefined> {
     const queryRunner = (await connection).createQueryRunner();
     const accountRepo = getRepository(Account);
     const accCreate = accountRepo.create();
@@ -59,6 +59,13 @@ export default class UserRepository implements IUsersRepository {
   }
 
   public async save(user: IUser): Promise<void> {
-    await this.save(user);
+    await this.repository.save(user);
+  }
+
+  public async getAccountInUser(id: string): Promise<IUser | undefined> {
+    return await this.repository.findOne({
+      where: { id },
+      relations: ['account'],
+    });
   }
 }
