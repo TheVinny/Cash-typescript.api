@@ -1,28 +1,41 @@
 import Account from '@modules/accounts/infra/model/AccountModel';
 import { EntityRepository, getRepository, Repository } from 'typeorm';
 import connection from '@shared/infra/database/index';
-import IUserRequest from '../interface/IUserRequest';
 import User from '../infra/model/userModel';
+import { ICreateUser } from '../domain/interfaces/ICreateUser';
+import { IUsersRepository } from '../domain/interfaces/IUsersRepository';
+import { IUser } from '../domain/interfaces/IUser';
 
 @EntityRepository(User)
-export default class UserRepository extends Repository<User> {
+export default class UserRepository implements IUsersRepository {
+  private repository: Repository<User>;
+  constructor() {
+    this.repository = getRepository(User);
+  }
+  public async find(): Promise<IUser[]> {
+    return await this.repository.find();
+  }
+
+  public async FindById(id: string): Promise<IUser | undefined> {
+    const user = await this.repository.findOne(id);
+
+    return user;
+  }
+
   public async FindByUsername(username: string): Promise<User | undefined> {
-    const user = await this.findOne({
+    const user = await this.repository.findOne({
       where: {
         username,
       },
       relations: ['account'],
     });
-
-    console.log(user);
-
     return user;
   }
 
   public async CreateAccount({
     password,
     username,
-  }: IUserRequest): Promise<User | undefined> {
+  }: ICreateUser): Promise<User | undefined> {
     const queryRunner = (await connection).createQueryRunner();
     const accountRepo = getRepository(Account);
     const accCreate = accountRepo.create();
@@ -30,7 +43,7 @@ export default class UserRepository extends Repository<User> {
 
     try {
       const accSave = await queryRunner.manager.save(accCreate);
-      const createdUser = this.create({
+      const createdUser = this.repository.create({
         password,
         username,
         account: accSave,
@@ -43,5 +56,9 @@ export default class UserRepository extends Repository<User> {
     } finally {
       await queryRunner.release();
     }
+  }
+
+  public async save(user: IUser): Promise<void> {
+    await this.save(user);
   }
 }

@@ -13,8 +13,7 @@ class UpdateUser {
     old_password,
   }: IUpdateUser): Promise<User> {
     const userRepository = getCustomRepository(UserRepository);
-
-    const userExists = await userRepository.findOne(id);
+    const userExists = await userRepository.FindById(id);
 
     if (!userExists) throw new AppError('ID not found', 500);
 

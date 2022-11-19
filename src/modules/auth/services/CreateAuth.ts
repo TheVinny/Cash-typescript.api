@@ -5,7 +5,7 @@ import { readFileSync } from 'fs';
 import path from 'path';
 import { getCustomRepository } from 'typeorm';
 import JWT from 'jsonwebtoken';
-import IAuth from '../interface/IAuth';
+import IAuth from '../domain/interfaces/IAuth';
 
 class CreateAuth {
   public async execute({ username, password }: IAuth): Promise<IAuth> {
