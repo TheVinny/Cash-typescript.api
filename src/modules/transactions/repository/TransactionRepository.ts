@@ -9,7 +9,7 @@ import { ITransaction } from '../infra/domain/interfaces/ITransaction';
 import { ITransactionRepository } from '../infra/domain/interfaces/ITransactionRepository';
 
 @EntityRepository(Transaction)
-export default class TransactionRepo implements ITransactionRepository {
+export default class TransactionRepository implements ITransactionRepository {
   private repository: Repository<Transaction>;
 
   constructor() {

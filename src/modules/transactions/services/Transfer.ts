@@ -1,20 +1,24 @@
-import UserRepository from '@modules/users/repository/userRepository';
 import AppError from '@shared/errors/AppError';
-import { getCustomRepository } from 'typeorm';
 import Transaction from '../infra/model/transactionModel';
-import TransactionRepository from '../repository/TransactionRepository';
 import { ITransfer } from '../infra/domain/interfaces/ITransfer';
+import { inject, injectable } from 'tsyringe';
+import { IUsersRepository } from '@modules/users/domain/interfaces/IUsersRepository';
+import { ITransactionRepository } from '../infra/domain/interfaces/ITransactionRepository';
 
+@injectable()
 class TransferAccount {
+  constructor(
+    @inject('TransactionRepository')
+    private transactionRepository: ITransactionRepository,
+    @inject('UserRepository')
+    private userRepository: IUsersRepository,
+  ) {}
   public async execute({
     username,
     id,
     value,
   }: ITransfer): Promise<Transaction> {
-    const transactionRepo = getCustomRepository(TransactionRepository);
-    const userRepository = getCustomRepository(UserRepository);
-
-    const user = await userRepository.getAccountInUser(id);
+    const user = await this.userRepository.getAccountInUser(id);
 
     if (!user) throw new AppError('user id not found', 404);
 
@@ -22,11 +26,11 @@ class TransferAccount {
 
     if (user.account.balance < value) throw new AppError('Sold not enough');
 
-    const receiver = await userRepository.FindByUsername(username as string);
+    const receiver = await this.userRepository.FindByUsername(username);
 
     if (!receiver) throw new AppError('receiver username not found', 404);
 
-    const transaction = await transactionRepo.transferTo({
+    const transaction = await this.transactionRepository.transferTo({
       sender: user.account,
       receiver: receiver.account,
       value,
@@ -38,4 +42,4 @@ class TransferAccount {
   }
 }
 
-export default new TransferAccount();
+export default TransferAccount;
