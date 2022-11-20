@@ -22,6 +22,8 @@ export default class AccountRepository implements IAccountRepository {
 
     const user = await userRepository.getAccountInUser(id);
 
+    if (!user) return user;
+
     const account = await this.repository.findOne(user?.account);
 
     return account;

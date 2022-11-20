@@ -1,13 +1,17 @@
 import AppError from '@shared/errors/AppError';
-import { getCustomRepository } from 'typeorm';
+import { inject, injectable } from 'tsyringe';
+import { IAccountRepository } from '../infra/domain/interfaces/IAccountRepository';
 import Account from '../infra/model/AccountModel';
-import AccountRepository from '../repository/AccountRepository';
 
+@injectable()
 class getAccount {
-  public async execute(id: string): Promise<Account> {
-    const accountRepository = getCustomRepository(AccountRepository);
+  constructor(
+    @inject('AccountRepository')
+    private AccountRepository: IAccountRepository,
+  ) {}
 
-    const account = await accountRepository.FindById(id);
+  public async execute(id: string): Promise<Account> {
+    const account = await this.AccountRepository.FindById(id);
 
     if (!account) throw new AppError('Account not found', 400);
 
@@ -15,4 +19,4 @@ class getAccount {
   }
 }
 
-export default new getAccount();
+export default getAccount;
