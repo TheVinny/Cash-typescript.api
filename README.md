@@ -34,20 +34,18 @@
 
 dependências :
 
+- Class Transformer
+- Moment;
 - Node.js;
 - Express;
 - Typescript;
 - ESLint;
 - Prettier;
 - Celebrate;
-- Multer;
 - CORS;
 - JWT;
 - BCrypt;
-- Nodemailer;
-- Handlebars;
 - Postgres;
-- Redis;
 - TypeORM;
 - Docker;
 
