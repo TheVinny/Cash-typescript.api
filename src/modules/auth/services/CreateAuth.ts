@@ -7,8 +7,10 @@ import { getCustomRepository } from 'typeorm';
 import JWT from 'jsonwebtoken';
 import IAuth from '../domain/interfaces/IAuth';
 
+import IAuthResponse from '../domain/interfaces/IAuthResponse';
+
 class CreateAuth {
-  public async execute({ username, password }: IAuth): Promise<IAuth> {
+  public async execute({ username, password }: IAuth): Promise<IAuthResponse> {
     const repositoryUser = getCustomRepository(UserRepository);
 
     const hasUser = await repositoryUser.FindByUsername(username);

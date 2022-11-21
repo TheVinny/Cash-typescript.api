@@ -8,6 +8,8 @@ class CreateAuthController {
 
     const users = await CreateAuth.execute({ username, password });
 
+    delete users.password;
+
     return res.json(instanceToInstance(users));
   }
 }
