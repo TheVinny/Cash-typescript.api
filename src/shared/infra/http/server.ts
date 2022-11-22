@@ -24,3 +24,5 @@ app.use(ErrorMiddleware);
 app.listen(process.env.PORT, () => {
   console.log(`Rodando na porta ${process.env.PORT}`);
 });
+
+export default app;
