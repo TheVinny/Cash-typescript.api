@@ -7,7 +7,7 @@
     "port": 5432,
     "username": "postgres",
     "password": "1234",
-    "database": "postgres",
+    "database": "cashapi",
     "entities": ["./src/modules/**/infra/model/*.ts"],
     "migrations": ["./src/shared/infra/database/migrations/*.ts"],
     "cli": {
