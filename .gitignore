@@ -9,6 +9,6 @@ ormconfig.json
 dist
 jwt.auth.key
 .docker/dbdata
-.docker/dbtestdata
+.docker/dbdatatest
 uploads/*
 !uploads/.gitkeep

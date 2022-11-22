@@ -26,3 +26,16 @@ services:
       - POSTGRES_DB=cashapi
       - POSTGRES_USER=postgres
 
+  dbtest:
+    build: .docker/postgres
+    container_name: cash-dbtest
+    restart: always
+    tty: true
+    ports:
+      - '4321:5432'
+    volumes:
+      - .docker/dbdatatest:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=1234
+      - POSTGRES_DB=cashapitest
+      - POSTGRES_USER=postgrestest

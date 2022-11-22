@@ -18,12 +18,12 @@
     "connection": "test",
     "name": "test",
     "type": "postgres",
-    "host": "db",
-    "port": 1111,
-    "username": "test",
-    "password": "test",
-    "database": "test",
-    "entities": ["./dist/modules/**/infra/model/*.ts"],
+    "host": "dbtest",
+    "port": 4321,
+    "username": "postgrestest",
+    "password": "1234",
+    "database": "cashapitest",
+    "entities": ["./src/modules/**/infra/model/*.ts"],
     "migrations": ["./src/shared/infra/database/migrations/*.ts"],
     "cli": {
       "migrationsDir": "./src/shared/infra/database/migrations"
