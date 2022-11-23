@@ -10,32 +10,18 @@ services:
     volumes:
       - .:/home/node/app
     depends_on:
-      - db
+      - database
 
-  db:
+  database:
     build: .docker/postgres
     container_name: cash-db
     restart: always
     tty: true
     ports:
-      - '5432:5432'
+      - '55432:5432'
     volumes:
       - .docker/dbdata:/var/lib/postgresql/data
     environment:
       - POSTGRES_PASSWORD=1234
       - POSTGRES_DB=cashapi
       - POSTGRES_USER=postgres
-
-  dbtest:
-    build: .docker/postgres
-    container_name: cash-dbtest
-    restart: always
-    tty: true
-    ports:
-      - '4321:5432'
-    volumes:
-      - .docker/dbdatatest:/var/lib/postgresql/data
-    environment:
-      - POSTGRES_PASSWORD=1234
-      - POSTGRES_DB=cashapitest
-      - POSTGRES_USER=postgrestest
