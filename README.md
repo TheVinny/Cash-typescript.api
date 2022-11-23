@@ -128,64 +128,88 @@ Execute o comando abaixo no terminal para subir a aplicação completa
 #### /Users:
 
 - create - post:
+
+  ```
   {
-  "username": "marquin2",
-  "password": "Marcos@123",
-  "password_confirmation": "Marcos@123"
+    "username": "marquin2",
+    "password": "Marcos@123",
+    "password_confirmation": "Marcos@123"
   }
+  ```
 
 - update - put:
+
+  ```
   {
-  "username": "marqi2to",
-  "password": "12345678@mv",
-  "old_password": "Marcos@123",
-  "password_confirmation": "12345678@mv"
+    "username": "marqi2to",
+    "password": "12345678@mv",
+    "old_password": "Marcos@123",
+    "password_confirmation": "12345678@mv"
   }
+  ```
 
 - delete - delete:
+
+  ```
   {
-  "username": "marqi2to",
-  "password": "12345678@mv",
-  "old_password": "Marcos@123",
-  "password_confirmation": "12345678@mv"
+    "username": "marqi2to",
+    "password": "12345678@mv",
+    "old_password": "Marcos@123",
+    "password_confirmation": "12345678@mv"
   }
+  ```
 
 - get all - get:
+
+  ```
   {
-  "username": "marqi2to",
-  "password": "12345678@mv",
-  "old_password": "Marcos@123",
-  "password_confirmation": "12345678@mv"
+    "username": "marqi2to",
+    "password": "12345678@mv",
+    "old_password": "Marcos@123",
+    "password_confirmation": "12345678@mv"
   }
+  ```
 
 #### /auth:
 
 - auth - post:
+
+  ```
   {
-  "username": "marquin2",
-  "password": "Marcos@123"
+    "username": "marquin2",
+    "password": "Marcos@123"
   }
+  ```
 
 #### /account:
 
 - get my account - get:
+
+  ```
   {
-  "username": "marquin2",
-  "password": "Marcos@123"
+    "username": "marquin2",
+    "password": "Marcos@123"
   }
+  ```
 
 #### /transfer:
 
 - transfer to - post:
+
+  ```
   {
-  "username": "marquin2", <- id do remetente
-  "value": 2.75
+    "username": "marquin2", <- id do remetente
+    "value": 2.75
   }
+  ```
 
 - get transfers - post:
-  {
-  "filter": "send" < Filter pode ser send ou received filtrando por enviados ou recebidos>,
-  "date" : "01/01/2023", < Também é possivel filtrar por data, ambos os filtros são opcionais>
-  }
 
-</details>
+  ```
+  {
+    "filter": "send" < Filter pode ser send ou received filtrando por enviados ou recebidos>,
+    "date" : "01/01/2023", < Também é possivel filtrar por data, ambos os filtros são opcionais>
+  }
+  ```
+
+  </details>
