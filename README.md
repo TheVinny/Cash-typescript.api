@@ -1,3 +1,39 @@
+###
+
+Projeto elaborado com o intuito de por em prática minhas habilidades
+
+Após rodar o projeto, você poderá importar as rotas no insomnia através do arquivo json na raiz do projeto
+
+## Dependencies
+
+Para rodar o projeto, execute o script npm install ou yarn para instalar as dependências :
+
+- Node.js;
+- Express;
+- Typescript;
+- ESLint;
+- Prettier;
+- Celebrate;
+- CORS;
+- JWT;
+- BCrypt;
+- Nodemailer;
+- Postgres;
+- TypeORM;
+- Docker;
+
+## OBSERVAÇÃO:
+
+Prestar atenção nos arquivos de exemplo na raiz do projeto, modifique conforme as necessidades. Remova o '.example'
+
+## Running
+
+Execute o comando abaixo em seu terminal:
+
+```
+ docker-compose up
+```
+
 ## Arquitetura | Models
 
 ### Users

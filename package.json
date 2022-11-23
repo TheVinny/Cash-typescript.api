@@ -7,7 +7,6 @@
     "dev": "ts-node-dev  -r tsconfig-paths/register --inspect --transpile-only --ignore-watch node_modules src/shared/infra/http/server.ts",
     "typeorm": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
     "pretest": "cross-env NODE_ENV=test ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:run -c test",
-    "docker-test": "docker exec -it cash-api npm run test",
     "test": "cross-env NODE_ENV=test cross-env PORT=3334 jest || :",
     "posttest": "cross-env NODE_ENV=test cross-env PORT=3334  ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:revert -c test"
   },

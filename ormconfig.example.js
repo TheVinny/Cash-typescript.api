@@ -1,9 +1,9 @@
-[
+
+const config = [
   {
-    "connection": "dev",
     "name": "default",
     "type": "postgres",
-    "host": "db",
+    "host": "database",
     "port": 5432,
     "username": "postgres",
     "password": "1234",
@@ -15,14 +15,13 @@
     }
   },
   {
-    "connection": "test",
     "name": "test",
     "type": "postgres",
-    "host": "dbtest",
-    "port": 4321,
-    "username": "postgrestest",
+    "host": "database",
+    "port": 5432,
+    "username": "postgres",
     "password": "1234",
-    "database": "cashapitest",
+    "database": "cashtest",
     "entities": ["./src/modules/**/infra/model/*.ts"],
     "migrations": ["./src/shared/infra/database/migrations/*.ts"],
     "cli": {
@@ -30,3 +29,6 @@
     }
   }
 ]
+
+
+module.exports = config

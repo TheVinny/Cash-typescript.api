@@ -12,3 +12,4 @@ jwt.auth.key
 .docker/dbdatatest
 uploads/*
 !uploads/.gitkeep
+##
